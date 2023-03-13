@@ -8,7 +8,7 @@ import React from 'react';
    const [todos, setTodos] = useState([])
 
   // const createTodoUser = () => {
-  //   fetch('https://assets.breatheco.de/apis/fake/todos/user/Armitage6' ,  {
+  //   fetch('https://assets.breatheco.de/apis/fake/todos/user/Armitage9' ,  {
   //     method:'POST',
   //     headers: {
   //       'Content-type': 'application/json'
@@ -18,15 +18,16 @@ import React from 'react';
   //     .then((data) => console.log(data))
   //     .catch((error) => console.log(error))
   // }
+
   const getTask = () => {
-    fetch('https://assets.breatheco.de/apis/fake/todos/user/Armitage6')
+    fetch('https://assets.breatheco.de/apis/fake/todos/user/Armitage9')
     .then((res) => res.json())
     .then((data) => setTodos(data))
     .catch((error) => console.log(error))
   }
 
 const udateTasks = (tasks) => {
-  fetch('https://assets.breatheco.de/apis/fake/todos/user/Armitage6' ,  {
+  fetch('https://assets.breatheco.de/apis/fake/todos/user/Armitage9' ,  {
        method:'PUT',
       headers: {
          'Content-type': 'application/json'
@@ -39,7 +40,7 @@ const udateTasks = (tasks) => {
 
    const udateTasks2 = () => {
     setTodos([]);
-    fetch('https://assets.breatheco.de/apis/fake/todos/user/Armitage6' ,  {
+    fetch('https://assets.breatheco.de/apis/fake/todos/user/Armitage9' ,  {
          method:'PUT',
          body: JSON.stringify([{label: "none", done: false}]),
         headers: {
@@ -52,22 +53,20 @@ const udateTasks = (tasks) => {
      }
   
 
-  //  const deleteUser = () => {
-  //   fetch('https://assets.breatheco.de/apis/fake/todos/user/Armitage6' ,  {
-  //     method:'DELETE',
-  //    headers: {
-  //       'Content-type': 'application/json'
-  //     },
-      
-  //  }).then((res) => res.json())
-  //    .then((data) => console.log(data))
-  //    .catch((error) => console.log(error))
-  // }
+  
+
+  const deleteUser = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+    udateTasks(newTodos);
+  };
+  
    
 
 
   useEffect(() => {
-    // createTodoUser()
+    //  createTodoUser()
     getTask()
   }, [])
 
@@ -101,14 +100,7 @@ const udateTasks = (tasks) => {
               {' '}
               <i
                 className='fa-solid fa-xmark'
-                onClick={() =>
-                  setTodos(
-                    todos.filter(
-                      (t, currentIndex) => index !== currentIndex
-                    )
-                  )
-                }
-              ></i>
+                onClick={() => deleteUser(index)}></i>
             </li>
           ))
         )}
